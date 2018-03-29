@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="box" v-cloak>
+			<div class="triffle">
+		        <div class="icon-list">
+			        <a class="merchant">
+			          	<i class="text">商家入驻</i>
+			        </a>
+			        <a href="javascript:;" class="small-qrcode">
+			          	<i class="big-qrcode">
+			            	<b>扫码下载客户端</b>
+			          	</i>
+			        </a>
+				    <a class="phone">
+				      	<i class="text">联系我们</i>
+				    </a>
+			    </div>
+		    	<a id="aside-feedback" target="_blank" href="javascript:;" class="top"><i class="icon i-backtop"></i></a>
+		  	</div>
+		  	
+		  	<div class="shopping-cart clearfix" >
+		  	    <div class="order-list" v-show="shopbar">
+		  	      	<div class="title">
+		            	<span class="fl buy-title">购物车</span>
+		  	        	<span class="fr dishes"><a href="javascript:;" class="clear-cart" @click="del"><i></i>清空菜品</a></span>
+		  	      	</div>
+		  	      	
+	  	      		<ul style="height: auto; overflow: visible;">
+						<li class="clearfix" v-for="(item,index) in order">
+							<div class="fl na clearfix">
+								<div class="">{{item.name}}</div>
+							</div>
+							<div class="fl modify clearfix">
+								<a href="javascript:;" class="fl minus" @click="sub(index)">-</a>
+								<input class="fl txt-count" v-model="item.num" maxlength="2" type="text">
+								<a href="javascript:;" class="fl plus" @click="add(index)">+</a>
+							</div>
+							<div class="fr pri"><span>¥{{item.num*item.price}}</span></div>
+						</li>
+					</ul>
+					
+		  	      	<div class="other-charge">
+			  	        <div class="clearfix packing-cost">
+			  	          	<span class="fl">包装费</span>
+			  	          	<span class="fr boxtotalprice">¥{{aNum}}</span>
+			  	        </div>
+			  	        <div class="clearfix delivery-cost">
+				  	        <span class="fl">配送费(不计入起送价)</span>
+				  	        <span class="fr shippingfee">¥5</span>
+			  	        </div>
+		  	      	</div>
+		  	      	<div class="total">共<span class="totalnumber">{{aNum}}</span>份，总计<span class="bill">{{aPrice}}</span></div>
+		  	    </div>
+		
+		  	    <div class="footer clearfix">
+			        <div class="logo fl"></div>
+			        <div class="fr">
+			           	<a v-show="!canshop" class="ready-pay" href="javascript:;" style="display: inline-block;">差<span data-left="20" class="margintominprice">20</span>元起送</a>
+			            <input v-show="canshop" type="button" class="go-pay" value="立即下单" />
+			        </div>
+		        </div>
+		    </div>
+		  	
+		  	
+			<div class="wrapper">
+				<div class="page-header">
+					<div class="top-nav">
+						<div class="inner">
+							<img src="images/火狐截图_2018-03-11T00-20-05_02.jpg"/>
+						</div>
+					</div>
+					<div class="mid-nav">
+						<div class="inner">
+							<img src="images/火狐截图_2018-03-11T00-20-05_04.jpg"/>
+						</div>
+					</div>
+				</div>
+				<div class="page-wrap clearfix">
+					<div class="inner">
+						<div class="rest-info">
+							<img src="images/火狐截图_2018-03-11T00-20-05_06.jpg"/>
+						</div>
+						<div class="food-list clearfix">
+							<div class="cate-tab-area clearfix">
+								<ul class="tab-link clearfix">
+									<li><span class="ac">菜单</span></li>
+									<li><span>评价</span></li>
+									<li><span>食品安全档案</span></li>
+								</ul>
+								<ul class="ori-foodtype-nav clearfix">
+									<li v-for="(item,index) in menu">{{item.menulist}}</li>
+								</ul>
+							</div>
+							<div class="food-nav">
+								<div class="category" v-for="(menu,a) in menu">
+									<h3 class="title">{{menu.menulist}}<span @click="show(a)"><img v-show="menu.isshow" src="images/add.png"/><img v-show="!menu.isshow" src="images/sub.png"/></span></h3>
+									<div class="pic-food-cont clearfix" v-show="menu.isshow">
+										<div class="pic-food fl" v-for="(item,b) in menu.dishes">
+											<div class="avatar" v-html="item.pic"></div>
+											<div class="np">
+												<span>{{item.name}}</span>
+											</div>
+											<div class="sale-info">
+												<div class="sold-count fl">赞：{{item.Approval}}</div>
+											</div>
+											<div class="labels clearfix">
+												<button class="add fr" @click="addItem(a,b)">点餐</button>
+												<div class="price fl clearfix">
+													<div class="only">
+														￥{{item.price}}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								</div>
+								
+							</div>
+							
+							
+							
+						</div>
+					</div>
+				</div>
+				<div class="page-footer">
+					
+				</div>
+				
+				
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var app = new Vue({
+	el:"#box",
+	data:{
+		menu:[
+			{
+			"menulist": "煨冬新品",
+			"isshow":true,
+			"dishes": [
+				{
+					"name":"凉拌四川折耳根",
+				    "pic":"<img src='images/101.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":77,
+				    "isclick":false,
+				    "id":0
+				},
+				{
+					"name":"年味儿腊拼",
+				    "pic":"<img src='images/102.jpg'/>",
+				    "price":56,
+				    "bool":false,
+				    "num":0,
+				    "Approval":64,
+				    "isclick":false,
+				    "id":1
+				},
+				{
+					"name":"火边子牛肉蔬果沙拉 ",
+				    "pic":"<img src='images/103.jpg'/>",
+				    "price":49,
+				    "bool":false,
+				    "num":0,
+				    "Approval":145,
+				    "isclick":false,
+				    "id":2
+				},
+				{
+					"name":"豌豆尖汆圆子",
+				    "pic":"<img src='images/104.jpg'/>",
+				    "price":40,
+				    "bool":false,
+				    "num":0,
+				    "Approval":169,
+				    "isclick":false,
+				    "id":3
+				},
+				{
+					"name":"腊味什锦锅",
+				    "pic":"<img src='images/105.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":201,
+				    "isclick":false,
+				    "id":4
+				},
+				{
+					"name":"韭香老火猪肝",
+				    "pic":"<img src='images/106.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":94,
+				    "isclick":false,
+				    "id":5
+				},
+				{
+					"name":"农家碗碗肥肠 ",
+				    "pic":"<img src='images/107.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":137,
+				    "isclick":false,
+				    "id":6
+				},
+				{
+					"name":"腊肉爆油菜苔",
+				    "pic":"<img src='images/108.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":204,
+				    "isclick":false,
+				    "id":7
+				},
+				{
+					"name":"55年传家卤鹅 ",
+				    "pic":"<img src='images/109.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":88,
+				    "isclick":false,
+				    "id":8
+				}
+			]
+		},
+		{
+			"menulist": "东坡招牌 ",
+			"isshow":false,
+			"dishes": [
+				{
+					"name":"眉州东坡香肠",
+				    "pic":"<img src='images/101.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":77,
+				    "isclick":false,
+				    "id":10
+				},
+				{
+					"name":"东坡肘子（位）",
+				    "pic":"<img src='images/102.jpg'/>",
+				    "price":56,
+				    "bool":false,
+				    "num":0,
+				    "Approval":64,
+				    "isclick":false,
+				    "id":11
+				},
+				{
+					"name":"板栗烧土鸡  ",
+				    "pic":"<img src='images/103.jpg'/>",
+				    "price":49,
+				    "bool":false,
+				    "num":0,
+				    "Approval":145,
+				    "isclick":false,
+				    "id":12
+				},
+				{
+					"name":"传统樟茶鸭",
+				    "pic":"<img src='images/104.jpg'/>",
+				    "price":40,
+				    "bool":false,
+				    "num":0,
+				    "Approval":169,
+				    "isclick":false,
+				    "id":13
+				},
+				{
+					"name":"东坡江团鱼(条) ",
+				    "pic":"<img src='images/105.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":201,
+				    "isclick":false,
+				    "id":14
+				},
+				{
+					"name":"清蒸鲈鱼",
+				    "pic":"<img src='images/106.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":94,
+				    "isclick":false,
+				    "id":15
+				}
+			]
+		},
+		{
+			"menulist": "东坡凉菜 ",
+			"isshow":false,
+			"dishes": [
+				{
+					"name":"卤藕片",
+				    "pic":"<img src='images/101.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":77,
+				    "isclick":false,
+				    "id":16
+				},
+				{
+					"name":"坛子卤猪蹄 ",
+				    "pic":"<img src='images/102.jpg'/>",
+				    "price":56,
+				    "bool":false,
+				    "num":0,
+				    "Approval":64,
+				    "isclick":false,
+				    "id":17
+				},
+				{
+					"name":"卤鸡腿  ",
+				    "pic":"<img src='images/103.jpg'/>",
+				    "price":49,
+				    "bool":false,
+				    "num":0,
+				    "Approval":145,
+				    "isclick":false,
+				    "id":18
+				},
+				{
+					"name":"眉州东坡香肠 ",
+				    "pic":"<img src='images/104.jpg'/>",
+				    "price":40,
+				    "bool":false,
+				    "num":0,
+				    "Approval":169,
+				    "isclick":false,
+				    "id":19
+				},
+				{
+					"name":"东坡旋子凉粉",
+				    "pic":"<img src='images/105.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":201,
+				    "isclick":false,
+				    "id":20
+				},
+				{
+					"name":"鸡丝凉面",
+				    "pic":"<img src='images/106.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":94,
+				    "isclick":false,
+				    "id":21
+				},
+				{
+					"name":"夫妻肺片  ",
+				    "pic":"<img src='images/107.jpg'/>",
+				    "price":28,
+				    "bool":false,
+				    "num":0,
+				    "Approval":137,
+				    "isclick":false,
+				    "id":22
+				}
+			]
+		}
+	
+		],
+		order:[],
+		aNum:0,
+		aIndex:"",
+		bIndex:"",
+		aPrice:0,
+		shopbar:false,
+		canshop:false
+	},
+//	mounted:function(){
+//		this.$nextTick(function(){
+//			this.cartView();
+//		});
+//	},
+	methods:{
+//		cartView:function(){
+//			this.$http.get("data/items.json").then(function(res){
+//				this.menu = res.body.menu;
+//			},function(err){
+//				console.log("shibai")
+//			})
+//		},
+		addItem:function(a,b){
+			if(this.menu[a].dishes[b].isclick){
+				for(var i=0;i<this.order.length;i++){
+					if(this.menu[a].dishes[b].name==this.order[i].name){
+						this.order[i].num++;
+					}
+				}
+			}else{
+				this.menu[a].dishes[b].isclick = true;
+				this.order.push(this.menu[a].dishes[b]);
+				this.order[this.order.length-1].num++;
+			}
+			this.aNum++;
+			this.aPrice=0;
+			for(var i=0;i<this.order.length;i++){
+				this.aPrice += this.order[i].num*this.order[i].price;
+			}
+			this.aPrice += this.aNum +5;
+			if(this.order.length>0){
+                this.shopbar = true;
+                this.canshop = true;
+            }
+		},
+		add:function(index){
+			this.order[index].num++;
+			this.aNum++;
+			this.aPrice=0;
+			for(var i=0;i<this.order.length;i++){
+				this.aPrice += this.order[i].num*this.order[i].price;
+			}
+			this.aPrice += this.aNum +5;
+		},
+		sub:function(index){
+            this.order[index].num--;
+            this.aNum--;
+            
+            if(this.order[index].num < 1){
+                for(let i=0;i<this.menu.length;i++){
+                	for(let j=0;j<this.menu[i].dishes.length;j++){
+                		if(this.order[index].id == this.menu[i].dishes[j].id){
+                			this.aIndex = i;
+                			this.bIndex = j;
+                		}
+                	}
+                }
+                this.menu[this.aIndex].dishes[this.bIndex].isclick = false;
+                this.order.splice(index,1);
+            }
+            if(this.order.length<1){
+                this.shopbar = false;
+                this.canshop = false;
+                this.aPrice=0;
+                return;
+            }
+            
+            this.aPrice=0;
+			for(var i=0;i<this.order.length;i++){
+				this.aPrice += this.order[i].num*this.order[i].price;
+			}
+			this.aPrice += this.aNum +5;
+       	},
+       	del:function(){
+       		this.aPrice=0;
+       		for(let i=0;i<this.menu.length;i++){
+            	for(let j=0;j<this.menu[i].dishes.length;j++){
+            		this.menu[i].dishes[j].isclick = false;
+            		this.menu[i].dishes[j].num = 0;
+            	}
+            };
+            this.order = [];
+            this.shopbar = false;
+            this.aNum = 0;
+            this.aPrice = 0;
+            this.canshop = false;
+       	},
+       	show:function(index){
+       		this.menu[index].isshow = !this.menu[index].isshow;
+       		
+       	}
+	}
+});
+
+</script>

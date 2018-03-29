@@ -1,0 +1,451 @@
+*{
+	padding: 0;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+img{
+	display: block;
+}
+html{
+	background-color: #f5f5f5;
+}
+a{
+	text-decoration: none;
+	color: #000000;
+}
+ul{
+	list-style: none;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.icon{
+	display: inline-block;
+}
+
+.clearfix:after{
+    content: "";
+    font-size: 0;
+    display: block;
+    clear: both;
+}
+.inner{
+	width: 985px;
+	min-width: 985px;
+	margin: 0 auto;
+}
+
+
+
+.triffle{
+    position: fixed;
+    right: 0;
+    font-size: 12px;
+    z-index: 995;
+    bottom: 200px;
+}
+.icon-list{
+    margin-bottom: 10px;
+}
+.icon-list a{
+	width: 19px;
+	height: 18px;
+	padding: 10px;
+	background-color: rgba(0,0,0,.8);
+	text-align: center;
+	position: relative;
+	display: block;
+}
+
+.icon-list .text{
+    display: none;
+    width: 58px;
+    height: 38px;
+    line-height: 40px;
+    border-radius: 4px;
+    top: 0;
+    left: -56px;
+    text-align: right;
+}
+.icon-list .big-qrcode{
+	display: none;
+	width: 100px;
+	height: 122px;
+	left: -100px;
+	top: -60%;
+}
+.icon-list .phone{
+	
+}
+
+
+.icon-list .merchant{
+	background-image: url(../images/triffle-sprite3.png);
+	background-repeat: no-repeat;
+	background-position: 10px 10px;
+}
+.icon-list .small-qrcode{
+	background-image: url(../images/triffle-sprite3.png);
+	background-repeat: no-repeat;
+	background-position: 11px -43px;
+}
+.icon-list .phone{
+	background-image: url(../images/triffle-sprite3.png);
+	background-repeat: no-repeat;
+	background-position: 11px -97px;
+}
+.right_nav li a .span4{
+	background: url(../images/toolbars.png) -50px -250px;
+}
+
+
+
+
+.page-header{
+	height: 115px;
+	background-color: #ffc643;
+	margin-bottom: 10px;
+}
+.top-nav{
+	height: 32px;
+	background-color: #333333;
+}
+.mid-nav{
+	height: 83px;
+	background-color: #ffffff;
+}
+
+.rest-info{
+	height: 120px;
+	margin-bottom: 10px;
+}
+
+.food-list{
+	width: 660px;
+	overflow: hidden;
+}
+
+.cate-tab-area{
+	width: 660px;
+	background-color: #FFFFFF;
+}
+.tab-link{
+	height: 50px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #e5e5e5;
+}
+.tab-link li{
+	height: 50px;
+	margin: 0 25px;
+	float: left;
+	line-height: 50px;
+}
+.tab-link li span{
+	display: block;
+	height: 50px;
+}
+.tab-link li .ac{
+	box-sizing: border-box;
+	border-bottom: 3px solid #ffa627;
+}
+
+
+.ori-foodtype-nav{
+	padding: 25px 20px 12px;
+}
+.ori-foodtype-nav li{
+	float: left;
+	width: 118px;
+	height: 24px;
+	line-height: 24px;
+	margin-right: 5px;
+	margin-bottom: 12px;
+	overflow: hidden;
+	cursor: pointer;
+}
+.category{
+	margin-top: 14px;
+	background: #fff;
+	width: 660px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.category .title{
+	border-bottom: 1px solid #e5e5e5;
+	color: #333;
+	height: 50px;
+	font-size: 16px;
+	padding-left: 19px;
+	line-height: 50px;
+	background-color: #fff;
+}
+.category .title span{
+	height: 30px;
+	width: 30px;
+	float: right;
+	margin-right: 20px;
+	margin-top: 10px;
+}
+.category .title span img{
+	height: 30px;
+	width: 30px;
+}
+.pic-food-cont{
+	border-bottom: 1px solid #ebebeb;
+	width: 663px;
+	overflow: hidden;
+}
+.pic-food{
+	width: 220px;
+	height: 251px;
+	border-right: 1px dashed #e5e5e5;
+	border-bottom: 1px dashed #e5e5e5;
+	overflow: hidden;
+}
+.pic-food:hover{
+	background-color: #fafafa;
+}
+.pic-food .avatar{
+    position: relative;
+    height: 127px;
+    margin: 20px auto 0;
+    width: 170px;
+}
+.pic-food .avatar img{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pic-food .np{
+	margin: 12px auto 0;
+	width: 170px;
+}
+
+.pic-food .np span{
+	font-size: 14px;
+	color: #333;
+	font-weight: 700;
+	display: block;
+	width: 100%;
+	overflow: hidden;
+}
+
+.pic-food .sale-info{
+	margin: 5px auto 0;
+	height: 16px;
+	font-size: 12px;
+	color: #999;
+	width: 170px;
+}
+
+.pic-food .sale-info .sold-count{
+	color: #999;
+}
+
+.pic-food .labels{
+	margin: 8px auto 0;
+	width: 170px;
+}
+
+.pic-food .labels .add{
+	width: 40px;
+	height: 25px;
+	border-radius: 5px;
+	border: 1px solid #ffa627;
+	background-color: #ffa627;
+	color: #fff;
+}
+
+.pic-food .labels .price{
+	margin-top: 3px;
+}
+.pic-food .labels .price .only {
+    font-size: 14px;
+    color: #ff5a5a;
+    font-weight: 700;
+}
+
+.shopping-cart{
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	margin-left: 189px;
+	width: 306px;
+	z-index: 100;
+	font-size: 14px;
+}
+
+.order-list{
+	width: 306px;
+	background-color: #FFF;
+}
+
+.shopping-cart .title{
+	color: #333;
+	background-color: #fafafa;
+	height: 44px;
+	line-height: 44px;
+	padding: 0 10px;
+	font-size: 14px;
+}
+.shopping-cart .title .buy-title{
+	color: #333;
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+}
+.shopping-cart .title .dishes{
+	color: #333;
+	height: 40px;
+	line-height: 44px;
+	font-size: 14px;
+}
+.shopping-cart .dishes .clear-cart{
+	color: #333;
+}
+.shopping-cart .dishes .clear-cart i {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: url(../images/clear.png) no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.shopping-cart .order-list ul{
+	height: auto;
+	overflow: visible;
+}
+.shopping-cart .order-list li{
+	border-bottom: 1px solid #E5E5E5;
+	margin: 0 10px;
+}
+.shopping-cart .order-list li .na{
+	width: 148px;
+	margin: 16px 0 14px;
+	overflow: hidden;
+}
+.shopping-cart .order-list li .modify{
+	padding-top: 16px;
+	font-size: 12px;
+}
+.shopping-cart .order-list li .modify a{
+	width: 16px;
+	height: 16px;
+	border: 1px solid #E5E5E5;
+	display: inline-block;
+	letter-spacing: 0;
+	color: #333;
+	text-align: center;
+}
+
+.shopping-cart .order-list li .modify .minus{
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+.shopping-cart .order-list li .modify .txt-count{
+	width: 28px;
+	display: inline-block;
+	height: 16px;
+	padding: 0 3px;
+	line-height: 16px;
+	border: 1px solid #E5E5E5;
+	border-left: 0;
+	border-right: 0;
+	border-color: #E5E5E5;
+	text-align: center;
+}
+.shopping-cart .order-list li .pri{
+	line-height: 49px;
+	text-align: right;
+	color: #ffa735;
+}
+
+.shopping-cart .other-charge div{
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #e5e5e5;
+	margin: 0 10px;
+}
+
+.boxtotalprice,.shippingfee{
+	color: #ffa735;
+}
+.shopping-cart .total{
+	display: block;
+	height: 54px;
+	line-height: 54px;
+	text-align: right;
+	padding-right: 10px;
+}
+.shopping-cart .total span{
+    margin: 0 3px;
+    color: #fe4d3d;
+}
+.shopping-cart .total span.bill{
+    font-size: 28px;
+    font-weight: 700;
+    margin-right: 0;
+    color: #fe4d3d;
+}
+
+
+
+
+.shopping-cart .footer{
+	background-color: #333;
+	cursor: pointer;
+	z-index: 1;
+	position: relative;
+	height: 50px;
+	margin-top: -1px;
+}
+
+.shopping-cart .footer .logo{
+	width: 31px;
+	height: 31px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background: url(../images/goshop.png) no-repeat;
+	background-size: 100% 100%;
+}
+.footer .go-pay{
+	color: #333;
+	font-weight: 700;
+	padding: 0 23px;
+	border: 0;
+	cursor: pointer;
+	border-radius: 0;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	text-align: center;
+	background-color: #ffd161;
+}
+
+.footer .ready-pay{
+	background-color: #a0a0a0;
+	color: #fff;
+	padding: 0 15px;
+	border-radius: 0;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	text-align: center;
+}
+
+
+
+
+
+[v-cloak]{
+	display:none;
+}
